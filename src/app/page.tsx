@@ -1,4 +1,3 @@
-
 "use client";
 
 import {useState} from 'react';
@@ -10,10 +9,12 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 import {Separator} from "@/components/ui/separator";
 import {Textarea} from "@/components/ui/textarea";
 import {useToast} from "@/hooks/use-toast";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 export default function Home() {
   const [baseKeyword, setBaseKeyword] = useState('');
   const [longTailKeywords, setLongTailKeywords] = useState<string[]>([]);
+  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const {toast} = useToast();
 
@@ -38,6 +39,35 @@ export default function Home() {
     toast({
       title: "Keywords copied to clipboard!",
     });
+  };
+
+  const handleGenerateBlogPost = async () => {
+    if (!selectedKeyword) {
+      toast({
+        title: "Please select a keyword first.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // Implement the logic to generate and upload the blog post to WordPress
+      // This is a placeholder for the actual implementation
+      toast({
+        title: "Blog post generation and upload to WordPress is not yet implemented.",
+        description: "This feature will be implemented in a future version.",
+        variant: "default",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error generating and uploading blog post",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -83,6 +113,31 @@ export default function Home() {
               <Button variant="secondary" className="mt-4" onClick={handleCopyToClipboard}>
                 <Copy className="mr-2 h-4 w-4"/>
                 Copy to Clipboard
+              </Button>
+
+              <div className="mt-4">
+                <Select onValueChange={setSelectedKeyword}>
+                  <SelectTrigger className="w-[200px]">
+                    <SelectValue placeholder="Select a keyword"/>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {longTailKeywords.map((keyword) => (
+                      <SelectItem key={keyword} value={keyword}>
+                        {keyword}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <Button className="mt-4" onClick={handleGenerateBlogPost} disabled={isLoading || !selectedKeyword}>
+                {isLoading ? (
+                  <>
+                    Generating Blog Post... <Loader2 className="ml-2 h-4 w-4 animate-spin"/>
+                  </>
+                ) : (
+                  "Generate &amp; Upload Blog Post to WordPress"
+                )}
               </Button>
             </div>
           )}
