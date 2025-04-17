@@ -1,12 +1,11 @@
 import { genkit } from 'genkit';
-import { openai } from '@genkit-ai/openai';
+import { googleAI } from '@genkit-ai/googleai';
 
 export const ai = genkit({
   promptDir: './prompts',
   plugins: [
-    openai({
-      apiKey: process.env.OPENROUTER_API_KEY,
-      baseUrl: 'https://openrouter.ai/api/v1',
+    googleAI({
+      apiKey: process.env.GOOGLE_GENAI_API_KEY,
     }),
   ],
   model: 'google/gemini-2.5-pro-exp-03-25:free',
