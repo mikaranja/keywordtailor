@@ -140,7 +140,7 @@ export default function Home() {
                     Generating Blog Post... <Loader2 className="ml-2 h-4 w-4 animate-spin"/>
                   </>
                 ) : (
-                  "Generate &amp; Upload Blog Post to WordPress"
+                  "Generate Blog Post"
                 )}
               </Button>
             </div>
