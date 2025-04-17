@@ -10,11 +10,13 @@ import {Separator} from "@/components/ui/separator";
 import {Textarea} from "@/components/ui/textarea";
 import {useToast} from "@/hooks/use-toast";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {generateBlogPost} from "@/ai/flows/generate-blog-post";
 
 export default function Home() {
   const [baseKeyword, setBaseKeyword] = useState('');
   const [longTailKeywords, setLongTailKeywords] = useState<string[]>([]);
   const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
+  const [blogPost, setBlogPost] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const {toast} = useToast();
 
@@ -52,11 +54,13 @@ export default function Home() {
 
     setIsLoading(true);
     try {
+      const result = await generateBlogPost({keyword: selectedKeyword});
+      setBlogPost(result.blogPost);
       // Implement the logic to generate and upload the blog post to WordPress
       // This is a placeholder for the actual implementation
       toast({
-        title: "Blog post generation and upload to WordPress is not yet implemented.",
-        description: "This feature will be implemented in a future version.",
+        title: "Blog post generated!",
+        description: "The blog post has been generated.",
         variant: "default",
       });
     } catch (error: any) {
@@ -139,6 +143,17 @@ export default function Home() {
                   "Generate &amp; Upload Blog Post to WordPress"
                 )}
               </Button>
+            </div>
+          )}
+          {blogPost.length > 0 && (
+            <div className="mt-6">
+              <Separator className="my-4"/>
+              <h2 className="text-xl font-semibold text-primary mb-2">Generated Blog Post</h2>
+              <Textarea
+                readOnly
+                value={blogPost}
+                className="min-h-[200px] rounded-md shadow-sm resize-none"
+              />
             </div>
           )}
         </CardContent>
