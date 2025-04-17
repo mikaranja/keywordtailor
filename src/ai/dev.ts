@@ -1,1 +1,3 @@
-// Flows will be imported for their side effects in this file.
+import '@/ai/flows/summarize-keywords.ts';
+import '@/ai/flows/improve-keyword-prompt.ts';
+import '@/ai/flows/generate-long-tail-keywords.ts';
