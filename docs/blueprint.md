@@ -6,6 +6,8 @@
 - AI Keyword Generation: Generates long-tail keyword suggestions using an AI model based on the base keyword. The AI model is a tool that generates output based on its reasoning.
 - Keyword Display: Displays the generated long-tail keywords in a list.
 - Copy to Clipboard: Option to copy the generated keywords to the clipboard.
+- Blog Post Generation: From the list of long-tail keywords, I want to be able to select one and use it to create a SEO optimized blog post.
+
 
 ## Style Guidelines:
 
