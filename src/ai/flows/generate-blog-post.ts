@@ -40,7 +40,7 @@ const prompt = ai.definePrompt({
   },
   prompt: `You are an expert SEO content writer.
   Your task is to generate a SEO optimized blog post for the given keyword.
-  The blog post should be at least 500 words long and should be engaging and informative.
+  The blog post should be at least 1000 words long and should be engaging and informative.
   The blog post should be well-structured with headings and paragraphs.
   The blog post should be optimized for the given keyword.
 
